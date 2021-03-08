@@ -1,6 +1,9 @@
 import types
 
 def main():
+	aChargingStation = types.ChargingStation()
+	print(aChargingStation.getCategory())
+
 	aCar = types.Car()
 	print(aCar.getCharge())
 
