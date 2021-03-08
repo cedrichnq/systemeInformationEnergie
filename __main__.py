@@ -1,6 +1,6 @@
 import types
 
-chargingTime = 10	# time to charge one item in a car (in minutes)
+loadingTime = 10	# time to charge all items in a car (in minutes)
 
 
 def main():
