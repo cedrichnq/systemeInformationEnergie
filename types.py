@@ -1,7 +1,8 @@
-class ChargingStationCategory():
-    fast = 'fast'
-    medium = 'medium'
-    slow = 'slow'
+# Chargin time in minutes
+class ChargingStationTime:
+    fast = 2
+    medium = 10
+    slow = 15
 
 class Car:
     "A car wich run and delivery things until she need to be refilled. That's a car life."
@@ -16,8 +17,8 @@ class Car:
 
 
 class ChargingStation: 
-	def __init__(self, category=ChargingStationCategory.medium):
-		self.category = category
+	def __init__(self, chargingTime=ChargingStationTime.medium):
+		self.chargingTime = chargingTime
 
-	def getCategory(self):
-		return self.category
+	def getChargingTime(self):
+		return self.chargingTime
