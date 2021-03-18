@@ -4,7 +4,18 @@ deliveryTime = 5		# time to decharge items (minutes)
 
 class Distances:
 	def __init__(self, distancesFile):
-		self.distances = distancesFile
+		distances = [] # matrix of distances
+		with open(distancesFile, 'r') as fp:
+			line = fp.readline()
+			while line:
+				line = line[:-1] # remove end of line car
+				distancesFromHere = line.split('     ')[1:] # beacause the file start with a separator
+				distances.append(distancesFromHere)
+				line = fp.readline()
+		self.distances = distances
+
+	def getMatrix(self): 
+		return self.distances
 
 class Times:
 	def __init__(self, rawTimes):
