@@ -3,6 +3,8 @@ import algorithms
 import sys
 import csv
 
+RESULTS_DIR = "./results/"
+
 def writeToCsv(data, file):
 	with open(file, 'w', newline='\n') as csvfile:
 		spamwriter = csv.writer(csvfile, delimiter=',')
@@ -18,7 +20,7 @@ def main(args):
 	visits = types.Visits(dataFolder+"visits.csv")	
 
 	result = algorithms.firstAlgo()
-	writeToCsv(result, 'result1.csv')
+	writeToCsv(result, RESULTS_DIR + 'result1.csv')
 
 
 if __name__ == "__main__":
