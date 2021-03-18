@@ -1,13 +1,24 @@
-import types
+import customTypes as types
+import algorithms
 import sys
+import csv
+
+def writeToCsv(data, file):
+	with open(file, 'w', newline='\n') as csvfile:
+		spamwriter = csv.writer(csvfile, delimiter=',')
+		for row in data:
+			spamwriter.writerow(row)
 
 def main(args):
 	dataFolder = args[1]
+
 	car = types.Car.getCar(dataFolder+"vehicle.ini")
 	distances = types.Distances(dataFolder+"distances.txt")
 	times = types.Times(dataFolder+"times.txt")
 	visits = types.Visits(dataFolder+"visits.csv")	
-	print(visits.getMatrix())
+
+	result = algorithms.firstAlgo()
+	writeToCsv(result, 'result1.csv')
 
 
 if __name__ == "__main__":
