@@ -13,6 +13,16 @@ def parseMatrixFile(file):
 			line = fp.readline()
 	return matrix
 
+def parseCsvFile(file):
+	matrix =[]
+	with open(file, 'r') as fp:
+		line = fp.readline()
+		while line:
+			line = line[:-1] # remove end of line car
+			row = line.split(',')
+			matrix.append(row)
+			line = fp.readline()
+	return matrix[1:] # remove header
 
 class Distances:
 	def __init__(self, distancesFile):
@@ -70,8 +80,13 @@ class Car:
 
 
 class Visits:
-	def __init__(self, id, name, demand):
-		self.id = id
-		self.name = name
-		self.demand = demand
+	ID = 0
+	NAME = 1
+	DEMAND = 4
+	def __init__(self, visitsFile):
+		self.visits = parseCsvFile(visitsFile)
+
+
+	def getMatrix(self):
+		return self.visits
 

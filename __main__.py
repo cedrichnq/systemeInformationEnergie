@@ -5,9 +5,10 @@ def main(args):
 	dataFolder = args[1]
 	car = types.Car.getCar(dataFolder+"vehicle.ini")
 	distances = types.Distances(dataFolder+"distances.txt")
-
 	times = types.Times(dataFolder+"times.txt")
-	print(times.getMatrix())
+	visits = types.Visits(dataFolder+"visits.csv")	
+	print(visits.getMatrix())
+
 
 if __name__ == "__main__":
     # execute only if run as a script
