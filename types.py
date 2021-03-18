@@ -2,24 +2,33 @@ loadingTime = 10		# time to charge all items in a car (in minutes)
 deliveryUnitTime = 10/6 # time to decharge one item (minutes)
 deliveryTime = 5		# time to decharge items (minutes)
 
+def parseMatrixFile(file):
+	matrix = []
+	with open(file, 'r') as fp:
+		line = fp.readline()
+		while line:
+			line = line[:-1] # remove end of line car
+			rowData = line.split()
+			matrix.append(rowData)
+			line = fp.readline()
+	return matrix
+
+
 class Distances:
 	def __init__(self, distancesFile):
-		distances = [] # matrix of distances
-		with open(distancesFile, 'r') as fp:
-			line = fp.readline()
-			while line:
-				line = line[:-1] # remove end of line car
-				distancesFromHere = line.split('     ')[1:] # beacause the file start with a separator
-				distances.append(distancesFromHere)
-				line = fp.readline()
-		self.distances = distances
+		self.distances = parseMatrixFile(distancesFile)
 
 	def getMatrix(self): 
 		return self.distances
 
+
 class Times:
-	def __init__(self, rawTimes):
-		self.times = rawTimes
+	def __init__(self, timesFile):
+		self.times = parseMatrixFile(timesFile)
+
+	def getMatrix(self): 
+		return self.times
+
 
 class Car:
     "A car wich run and delivery things until she need to be refilled. That's a car life."
@@ -58,6 +67,7 @@ class Car:
 
     def getCharge(self):
     	return self.charge
+
 
 class Visits:
 	def __init__(self, id, name, demand):
