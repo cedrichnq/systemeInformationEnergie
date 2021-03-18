@@ -1,16 +1,16 @@
 import types
+import sys
 
-loadingTime = 10	# time to charge all items in a car (in minutes)
+def main(args):
+	dataFolder = args[1]
+	car = types.Car.getCar(dataFolder+"vehicle.ini")
 
-
-def main():
-	aChargingStation = types.ChargingStation()
-	print(aChargingStation.getChargingTime())
-
-	aCar = types.Car()
-	print(aCar.getCharge())
-
+	distances = types.Distances(dataFolder+"distances.txt")
 
 if __name__ == "__main__":
     # execute only if run as a script
-    main()
+    if(len(sys.argv) != 2):
+    	print("Uage :")
+    	print("$ python3 __main__.py <dataFolder>")
+    else: 
+    	main(sys.argv)
