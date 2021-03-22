@@ -1,5 +1,6 @@
 from const import ID, NAME, DEMAND
 from libs import parseMatrixFile, printMatrix, csvToVisits
+import datetime
 
 class Distances:
     """
@@ -39,36 +40,39 @@ class Car:
     """
 
     def getCar(initFile):
-    	with open(initFile, 'r') as fp:
-    		line = fp.readline()
-    		while line:
-    			line = line[:-1] # remove end of line car
-    			if(line.startswith('max_dist')):
-    				max_dist = float(line.partition('= ')[2])
-    			if(line.startswith('capacity')):
-    				capacity = float(line.partition('= ')[2])
-    			if(line.startswith('charge_fast')):
-    				charge_fast = float(line.partition('= ')[2])
-    			if(line.startswith('charge_medium')):
-    				charge_medium = float(line.partition('= ')[2])
-    			if(line.startswith('charge_slow')):
-    				charge_slow = float(line.partition('= ')[2])
-    			if(line.startswith('start_time')):
-    				start_time = line.partition('= ')[2]
-    			if(line.startswith('end_time')):
-    				end_time = line.partition('= ')[2]
-    			line = fp.readline()
+        with open(initFile, 'r') as fp:
+            line = fp.readline()
+            while line:
+                line = line[:-1] # remove end of line car
+                if(line.startswith('max_dist')):
+                    max_dist = float(line.partition('= ')[2])
+                if(line.startswith('capacity')):
+                    capacity = float(line.partition('= ')[2])
+                if(line.startswith('charge_fast')):
+                    charge_fast = float(line.partition('= ')[2])
+                if(line.startswith('charge_medium')):
+                    charge_medium = float(line.partition('= ')[2])
+                if(line.startswith('charge_slow')):
+                    charge_slow = float(line.partition('= ')[2])
+                if(line.startswith('start_time')):
+                    start_time_string = line.partition('= ')[2]
+                    start_time_time = datetime.datetime.strptime(start_time_string, '%H:%M').time()
+                    start_time = start_time_time.hour * 60 + start_time_time.minute
+                if(line.startswith('end_time')):
+                    end_time_string = line.partition('= ')[2]
+                    end_time_time = datetime.datetime.strptime(end_time_string, '%H:%M').time()
+                    end_time = end_time_time.hour * 60 + end_time_time.minute
+                line = fp.readline()
 
-    	return Car(capacity, max_dist, charge_fast, charge_medium, charge_slow)
+        return Car(capacity, max_dist, start_time, end_time)
 
-    def __init__(self, capacity, maxDist, charge_fast, charge_medium, charge_slow):
-        self.capacity = capacity	# the number of objects that can be carry by the car
-        self.filling = 0			# number of items carried 
-        self.max_dist = maxDist 	# maximum distance the car can drive
-        self.charge = maxDist		# the number of kilometers that the car can still drive
-        self.charge_fast = charge_fast
-        self.charge_medium = charge_medium
-        self.charge_slow = charge_slow
+    def __init__(self, capacity, maxDist, start_time, end_time):
+        self.capacity = capacity        # the number of objects that can be carry by the car
+        self.filling = 0                # number of items carried 
+        self.max_dist = maxDist         # maximum distance the car can drive
+        self.charge = maxDist           # the number of kilometers that the car can still drive
+        self.start_time = start_time    # in minutes
+        self.end_time = end_time        # in minutes
 
     def move(self, distance):
         self.charge -= distance
@@ -93,7 +97,7 @@ class Visit:
 
 class Visits:
     """
-        List of visits, without last line to deposit
+        List of visits, without first line : deposit
     """
 
     def __init__(self, visitsFile):

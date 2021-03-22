@@ -1,3 +1,5 @@
+import datetime
+
 def popList(arr, idsToPop):
 	newArr = []
 	
@@ -18,10 +20,13 @@ def firstAlgo(visits, distances, car):
 		visitsToPop = []
 		distToDeposit = 0
 
+		#remainingTime = car.end_time - car.start_time
+
 		for i, v in enumerate(m_visit):
 			distToNext = distances.getDistanceBetween(vehiclePosition, v.id)
 			distToDeposit = distances.distToDeposit(v.id)
 			distToNextToDeposit = distToNext + distToDeposit
+
 			if(distToNextToDeposit <= car.charge):
 				vehiclePosition = v.id
 				vehicleTour.append(v.id)
