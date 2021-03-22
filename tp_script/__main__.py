@@ -23,6 +23,8 @@ def main(dataFolder):
 
 	writeToCsv(result, RESULTS_DIR + 'result1.csv')
 
+	print("Le fichier de resultat s'appel result1.csv")
+
 
 if __name__ == "__main__":
     if(len(sys.argv) != 2):

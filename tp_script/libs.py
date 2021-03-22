@@ -28,4 +28,5 @@ def csvToVisits(file):
 			row = line.split(',')
 			matrix.append(types.Visit(row))
 			line = fp.readline()
-	return matrix
+	
+	return matrix[1:] # remove first line : deposit

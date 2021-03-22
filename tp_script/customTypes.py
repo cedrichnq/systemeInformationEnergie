@@ -2,17 +2,24 @@ from const import ID, NAME, DEMAND
 from libs import parseMatrixFile, printMatrix, csvToVisits
 
 class Distances:
-	def __init__(self, distancesFile):
-		self.distances = parseMatrixFile(distancesFile)
+    """
+        Distances matrix
+    """
 
-	def getMatrix(self): 
-		return self.distances
+    def __init__(self, distancesFile):
+        self.distances = parseMatrixFile(distancesFile)
 
-	def __str__(self):
-		return printMatrix(self.distances)
+    def getMatrix(self): 
+        return self.distances
 
-	def getDistanceBetween(self, pos1, pos2):
-		return self.distances[pos1][pos2]
+    def __str__(self):
+        return printMatrix(self.distances)
+
+    def getDistanceBetween(self, pos1, pos2):
+        return self.distances[pos1][pos2]
+
+    def distToDeposit(self, pos):
+        return self.distances[pos][0]
 
 
 class Times:
@@ -27,7 +34,9 @@ class Times:
 
 
 class Car:
-    "A car wich run and delivery things until she need to be refilled. That's a car life."
+    """
+        A car wich run and delivery things until she need to be refilled. That's a car life.
+    """
 
     def getCar(initFile):
     	with open(initFile, 'r') as fp:
@@ -64,26 +73,37 @@ class Car:
     def move(self, distance):
         self.charge -= distance
 
+    def refill(self):
+        self.charge = self.max_dist
+
 
 class Visit: 
-	def __init__(self, rawVisit):
-		self.id = int(rawVisit[ID])
-		self.name = rawVisit[NAME]
-		self.demand = int(rawVisit[DEMAND])
+    """
+        A point to delivery
+    """
 
-	def __str__(self):
-		return '[id: ' + str(self.id) + ', name: ' + str(self.name) + ', demand: ' + str(self.demand) + ']'
+    def __init__(self, rawVisit):
+        self.id = int(rawVisit[ID])
+        self.name = rawVisit[NAME]
+        self.demand = int(rawVisit[DEMAND])
+
+    def __str__(self):
+        return '[id: ' + str(self.id) + ', name: ' + str(self.name) + ', demand: ' + str(self.demand) + ']'
 
 
 class Visits:
-	def __init__(self, visitsFile):
-		self.visits = csvToVisits(visitsFile)
+    """
+        List of visits, without last line to deposit
+    """
 
-	def getMatrix(self):
-		return self.visits
+    def __init__(self, visitsFile):
+        self.visits = csvToVisits(visitsFile)
 
-	def __str__(self):
-		return printMatrix(self.visits)
+    def getMatrix(self):
+        return self.visits
 
-	def sortByDemand(self):
-		return self.visits.sort(key = lambda x: x.demand, reverse=True)
+    def __str__(self):
+        return printMatrix(self.visits)
+
+    def sortByDemand(self):
+        return self.visits.sort(key = lambda x: x.demand, reverse=True)
