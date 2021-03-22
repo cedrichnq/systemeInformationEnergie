@@ -11,6 +11,9 @@ class Distances:
 	def __str__(self):
 		return printMatrix(self.distances)
 
+	def getDistanceBetween(self, pos1, pos2):
+		return self.distances[pos1][pos2]
+
 
 class Times:
 	def __init__(self, timesFile):

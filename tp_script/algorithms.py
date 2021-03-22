@@ -1,12 +1,14 @@
-def firstAlgo(visits):
+def firstAlgo(visits, distances):
 	visits.sortByDemand()
 
 	m_visit = visits.getMatrix()
 
 	vehicleTour = [] # the journey of one vehicle, contain id of all visits
+	vehiclePosition = 0
 	for v in m_visit:
-		visitId = v.id
-		
+		distanceToNext = distances.getDistanceBetween(vehiclePosition, v.id)
+		print(distanceToNext)
+
 	print(vehicleTour)
 	
 	return [
