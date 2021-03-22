@@ -1,6 +1,9 @@
-loadingTime = 10		# time to charge all items in a car (in minutes)
-deliveryUnitTime = 10/6 # time to decharge one item (minutes)
-deliveryTime = 5		# time to decharge items (minutes)
+############## libs ##############
+def printMatrix(matrix):
+	string = ''
+	for row in matrix:
+		string += str(row) + '\n'
+	return string
 
 def parseMatrixFile(file):
 	matrix = []
@@ -24,12 +27,17 @@ def parseCsvFile(file):
 			line = fp.readline()
 	return matrix[1:] # remove header
 
+
+############## Types ##############
 class Distances:
 	def __init__(self, distancesFile):
 		self.distances = parseMatrixFile(distancesFile)
 
 	def getMatrix(self): 
 		return self.distances
+
+	def __str__(self):
+		return printMatrix(self.distances)
 
 
 class Times:
@@ -38,6 +46,9 @@ class Times:
 
 	def getMatrix(self): 
 		return self.times
+
+	def __str__(self):
+		return printMatrix(self.times)
 
 
 class Car:
@@ -79,14 +90,22 @@ class Car:
     	return self.charge
 
 
+ID = 0
+NAME = 1
+DEMAND = 4
+
+def takeDemand(visit):
+	return visit[DEMAND]
+
 class Visits:
-	ID = 0
-	NAME = 1
-	DEMAND = 4
 	def __init__(self, visitsFile):
 		self.visits = parseCsvFile(visitsFile)
-
 
 	def getMatrix(self):
 		return self.visits
 
+	def __str__(self):
+		return printMatrix(self.visits)
+
+	def sortByDemand(self):
+		return self.visits.sort(key = lambda x: int(x[DEMAND]), reverse=True)

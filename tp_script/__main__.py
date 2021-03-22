@@ -16,12 +16,13 @@ def writeToCsv(data, file):
 def main(args):
 	dataFolder = args[1]
 
-	car = types.Car.getCar(dataFolder+"vehicle.ini")
-	distances = types.Distances(dataFolder+"distances.txt")
-	times = types.Times(dataFolder+"times.txt")
-	visits = types.Visits(dataFolder+"visits.csv")	
+	car = types.Car.getCar(dataFolder+"/vehicle.ini")
+	distances = types.Distances(dataFolder+"/distances.txt")
+	times = types.Times(dataFolder+"/times.txt")
+	visits = types.Visits(dataFolder+"/visits.csv")	
 
-	result = algorithms.firstAlgo()
+	result = algorithms.firstAlgo(visits)
+	
 	writeToCsv(result, RESULTS_DIR + 'result1.csv')
 
 
