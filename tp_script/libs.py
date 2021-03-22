@@ -21,12 +21,10 @@ def csvToVisits(file):
 	matrix =[]
 	with open(file, 'r') as fp:
 		line = fp.readline()
+		line = fp.readline() # remove header
 		while line:
 			line = line[:-1] # remove end of line car
 			row = line.split(',')
 			matrix.append(types.Visit(row))
 			line = fp.readline()
-	return matrix[1:] # remove header
-
-def takeDemand(visit):
-	return visit[DEMAND]
+	return matrix

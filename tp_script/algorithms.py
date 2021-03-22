@@ -1,11 +1,13 @@
 def firstAlgo(visits):
 	visits.sortByDemand()
 
-	visits_m = visits.getMatrix()
+	m_visit = visits.getMatrix()
 
 	vehicleTour = [] # the journey of one vehicle, contain id of all visits
-	for v in visits_m:
-		print(v)
+	for v in m_visit:
+		visitId = v.id
+		
+	print(vehicleTour)
 	
 	return [
 		[0, 2, 10, 4],

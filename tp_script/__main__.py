@@ -1,5 +1,5 @@
-import customTypes as types
-import algorithms
+from customTypes import Car, Distances, Times, Visits
+from algorithms import firstAlgo
 import sys
 import csv
 import os
@@ -16,13 +16,13 @@ def writeToCsv(data, file):
 def main(args):
 	dataFolder = args[1]
 
-	car = types.Car.getCar(dataFolder+"/vehicle.ini")
-	distances = types.Distances(dataFolder+"/distances.txt")
-	times = types.Times(dataFolder+"/times.txt")
-	visits = types.Visits(dataFolder+"/visits.csv")	
-
-	result = algorithms.firstAlgo(visits)
+	car = Car.getCar(dataFolder+"/vehicle.ini")
+	distances = Distances(dataFolder+"/distances.txt")
+	times = Times(dataFolder+"/times.txt")
+	visits = Visits(dataFolder+"/visits.csv")	
 	
+	result = firstAlgo(visits)
+
 	writeToCsv(result, RESULTS_DIR + 'result1.csv')
 
 

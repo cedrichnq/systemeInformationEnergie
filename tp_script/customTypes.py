@@ -1,26 +1,26 @@
-import const as C
-import libs 
+from const import ID, NAME, DEMAND
+from libs import parseMatrixFile, printMatrix, csvToVisits
 
 class Distances:
 	def __init__(self, distancesFile):
-		self.distances = libs.parseMatrixFile(distancesFile)
+		self.distances = parseMatrixFile(distancesFile)
 
 	def getMatrix(self): 
 		return self.distances
 
 	def __str__(self):
-		return libs.printMatrix(self.distances)
+		return printMatrix(self.distances)
 
 
 class Times:
 	def __init__(self, timesFile):
-		self.times = libs.parseMatrixFile(timesFile)
+		self.times = parseMatrixFile(timesFile)
 
 	def getMatrix(self): 
 		return self.times
 
 	def __str__(self):
-		return libs.printMatrix(self.times)
+		return printMatrix(self.times)
 
 
 class Car:
@@ -64,23 +64,23 @@ class Car:
 
 class Visit: 
 	def __init__(self, rawVisit):
-		self.id = rawVisit[C.ID]
-		self.name = rawVisit[C.NAME]
-		self.demand = rawVisit[C.DEMAND]
+		self.id = int(rawVisit[ID])
+		self.name = rawVisit[NAME]
+		self.demand = int(rawVisit[DEMAND])
 
 	def __str__(self):
-		return '[id: ' + self.id + ', name: ' + self.name + ', demand: ' + self.demand + ']'
+		return '[id: ' + str(self.id) + ', name: ' + str(self.name) + ', demand: ' + str(self.demand) + ']'
 
 
 class Visits:
 	def __init__(self, visitsFile):
-		self.visits = libs.csvToVisits(visitsFile)
+		self.visits = csvToVisits(visitsFile)
 
 	def getMatrix(self):
 		return self.visits
 
 	def __str__(self):
-		return libs.printMatrix(self.visits)
+		return printMatrix(self.visits)
 
 	def sortByDemand(self):
-		return self.visits.sort(key = lambda x: int(x.demand), reverse=True)
+		return self.visits.sort(key = lambda x: x.demand, reverse=True)
