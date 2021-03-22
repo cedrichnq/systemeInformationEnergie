@@ -24,14 +24,20 @@ class Distances:
 
 
 class Times:
-	def __init__(self, timesFile):
-		self.times = parseMatrixFile(timesFile)
+    def __init__(self, timesFile):
+        self.times = parseMatrixFile(timesFile)
 
-	def getMatrix(self): 
-		return self.times
+    def getMatrix(self): 
+        return self.times
 
-	def __str__(self):
-		return printMatrix(self.times)
+    def __str__(self):
+        return printMatrix(self.times)
+
+    def getTimeBetween(self, pos1, pos2):
+        return self.times[pos1][pos2]
+
+    def timeToDeposit(self, pos):
+        return self.times[pos][0]
 
 
 class Car:
@@ -57,11 +63,11 @@ class Car:
                 if(line.startswith('start_time')):
                     start_time_string = line.partition('= ')[2]
                     start_time_time = datetime.datetime.strptime(start_time_string, '%H:%M').time()
-                    start_time = start_time_time.hour * 60 + start_time_time.minute
+                    start_time = start_time_time.hour * 60 * 60 + start_time_time.minute * 60
                 if(line.startswith('end_time')):
                     end_time_string = line.partition('= ')[2]
                     end_time_time = datetime.datetime.strptime(end_time_string, '%H:%M').time()
-                    end_time = end_time_time.hour * 60 + end_time_time.minute
+                    end_time = end_time_time.hour * 60 * 60 + end_time_time.minute * 60
                 line = fp.readline()
 
         return Car(capacity, max_dist, start_time, end_time)
@@ -71,8 +77,8 @@ class Car:
         self.filling = 0                # number of items carried 
         self.max_dist = maxDist         # maximum distance the car can drive
         self.charge = maxDist           # the number of kilometers that the car can still drive
-        self.start_time = start_time    # in minutes
-        self.end_time = end_time        # in minutes
+        self.start_time = start_time    # in secondes
+        self.end_time = end_time        # in secondes
 
     def move(self, distance):
         self.charge -= distance

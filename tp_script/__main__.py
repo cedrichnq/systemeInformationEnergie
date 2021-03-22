@@ -19,7 +19,7 @@ def main(dataFolder):
 	times = Times(dataFolder+"/times.txt")
 	visits = Visits(dataFolder+"/visits.csv")	
 	
-	result = firstAlgo(visits, distances, car)
+	result = firstAlgo(visits, distances, times, car)
 
 	writeToCsv(result, RESULTS_DIR + 'result1.csv')
 
