@@ -2,8 +2,10 @@ import customTypes as types
 import algorithms
 import sys
 import csv
+import os
 
-RESULTS_DIR = "./results/"
+
+RESULTS_DIR = os.path.dirname(os.path.realpath(__file__)) + "/results/"
 
 def writeToCsv(data, file):
 	with open(file, 'w', newline='\n') as csvfile:
