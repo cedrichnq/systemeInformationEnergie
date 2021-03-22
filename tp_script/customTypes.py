@@ -1,54 +1,26 @@
-############## libs ##############
-def printMatrix(matrix):
-	string = ''
-	for row in matrix:
-		string += str(row) + '\n'
-	return string
+import const as C
+import libs 
 
-def parseMatrixFile(file):
-	matrix = []
-	with open(file, 'r') as fp:
-		line = fp.readline()
-		while line:
-			line = line[:-1] # remove end of line car
-			rowData = line.split()
-			matrix.append(rowData)
-			line = fp.readline()
-	return matrix
-
-def parseCsvFile(file):
-	matrix =[]
-	with open(file, 'r') as fp:
-		line = fp.readline()
-		while line:
-			line = line[:-1] # remove end of line car
-			row = line.split(',')
-			matrix.append(row)
-			line = fp.readline()
-	return matrix[1:] # remove header
-
-
-############## Types ##############
 class Distances:
 	def __init__(self, distancesFile):
-		self.distances = parseMatrixFile(distancesFile)
+		self.distances = libs.parseMatrixFile(distancesFile)
 
 	def getMatrix(self): 
 		return self.distances
 
 	def __str__(self):
-		return printMatrix(self.distances)
+		return libs.printMatrix(self.distances)
 
 
 class Times:
 	def __init__(self, timesFile):
-		self.times = parseMatrixFile(timesFile)
+		self.times = libs.parseMatrixFile(timesFile)
 
 	def getMatrix(self): 
 		return self.times
 
 	def __str__(self):
-		return printMatrix(self.times)
+		return libs.printMatrix(self.times)
 
 
 class Car:
@@ -90,22 +62,25 @@ class Car:
     	return self.charge
 
 
-ID = 0
-NAME = 1
-DEMAND = 4
+class Visit: 
+	def __init__(self, rawVisit):
+		self.id = rawVisit[C.ID]
+		self.name = rawVisit[C.NAME]
+		self.demand = rawVisit[C.DEMAND]
 
-def takeDemand(visit):
-	return visit[DEMAND]
+	def __str__(self):
+		return '[id: ' + self.id + ', name: ' + self.name + ', demand: ' + self.demand + ']'
+
 
 class Visits:
 	def __init__(self, visitsFile):
-		self.visits = parseCsvFile(visitsFile)
+		self.visits = libs.csvToVisits(visitsFile)
 
 	def getMatrix(self):
 		return self.visits
 
 	def __str__(self):
-		return printMatrix(self.visits)
+		return libs.printMatrix(self.visits)
 
 	def sortByDemand(self):
-		return self.visits.sort(key = lambda x: int(x[DEMAND]), reverse=True)
+		return self.visits.sort(key = lambda x: int(x.demand), reverse=True)
