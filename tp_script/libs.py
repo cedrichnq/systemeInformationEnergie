@@ -13,6 +13,7 @@ def parseMatrixFile(file):
 		while line:
 			line = line[:-1] # remove end of line car
 			rowData = line.split()
+			rowData = [float(numeric_string) for numeric_string in rowData] # convert to floats
 			matrix.append(rowData)
 			line = fp.readline()
 	return matrix

@@ -35,15 +35,15 @@ class Car:
     		while line:
     			line = line[:-1] # remove end of line car
     			if(line.startswith('max_dist')):
-    				max_dist = line.partition('= ')[2]
+    				max_dist = float(line.partition('= ')[2])
     			if(line.startswith('capacity')):
-    				capacity = line.partition('= ')[2]
+    				capacity = float(line.partition('= ')[2])
     			if(line.startswith('charge_fast')):
-    				charge_fast = line.partition('= ')[2]
+    				charge_fast = float(line.partition('= ')[2])
     			if(line.startswith('charge_medium')):
-    				charge_medium = line.partition('= ')[2]
+    				charge_medium = float(line.partition('= ')[2])
     			if(line.startswith('charge_slow')):
-    				charge_slow = line.partition('= ')[2]
+    				charge_slow = float(line.partition('= ')[2])
     			if(line.startswith('start_time')):
     				start_time = line.partition('= ')[2]
     			if(line.startswith('end_time')):
@@ -61,8 +61,8 @@ class Car:
         self.charge_medium = charge_medium
         self.charge_slow = charge_slow
 
-    def getCharge(self):
-    	return self.charge
+    def move(self, distance):
+        self.charge -= distance
 
 
 class Visit: 
