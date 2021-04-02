@@ -1,5 +1,6 @@
 from customTypes import Car, Distances, Times, Visits
 from algorithms import firstAlgo, secondAlgo
+from libs import printMatrix
 import sys
 import csv
 import os
@@ -22,7 +23,7 @@ def main(dataFolder):
 	result = firstAlgo(visits, distances, times, car)
 	#result = secondAlgo(visits, distances, times, car)
 
-	print(result)
+	print(printMatrix(result))
 
 	writeToCsv(result, RESULTS_DIR + 'result1.csv')
 

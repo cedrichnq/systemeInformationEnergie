@@ -1,3 +1,4 @@
+from libs import timeToDelivery
 import datetime
 import random
 
@@ -9,7 +10,6 @@ def popList(arr, idsToPop):
 			newArr.append(e)
 	return newArr
 
-# TODO prendre en compte le temsp de chargement & (rechargement)
 def firstAlgo(visits, distances, times, car):
 	tours = []
 	# visits.sortByDemand() # pour tester
@@ -32,8 +32,9 @@ def firstAlgo(visits, distances, times, car):
 		distToNextToDeposit = distToNext + distToDeposit
 
 		timeToNext = times.getTimeBetween(vehiclePosition, v.id)
+		timeToNextAndDelevery = timeToNext + timeToDelivery(v.demand)
 		timeToDeposit = times.timeToDeposit(v.id)
-		timeToNextToDeposit = timeToNext + timeToDeposit
+		timeToNextToDeposit = timeToNextAndDelevery + timeToDeposit
 
 		demandOfNextDeposit = v.demand
 		
@@ -83,10 +84,13 @@ def secondAlgo(visits, distances, times, car):
 			distToNextToDeposit = distToNext + distToDeposit
 
 			timeToNext = times.getTimeBetween(vehiclePosition, v.id)
+			timeToNextAndDelevery = timeToNext + timeToDelivery(v.demand)
 			timeToDeposit = times.timeToDeposit(v.id)
-			timeToNextToDeposit = timeToNext + timeToDeposit
+			timeToNextToDeposit = timeToNextAndDelevery + timeToDeposit
 
-			if(distToNextToDeposit <= car.charge and timeToNextToDeposit <= remainingTime):
+			demandOfNextDeposit = v.demand
+
+			if(distToNextToDeposit <= car.charge and timeToNextToDeposit <= remainingTime and car.filling >= demandOfNextDeposit):
 				vehiclePosition = v.id
 				vehicleTour.append(v.id)
 				car.move(distToNext)

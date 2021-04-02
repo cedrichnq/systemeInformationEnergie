@@ -1,3 +1,4 @@
+from const import TIME_TO_DELIVERY_ONE_ITEM, TIME_TO_DELIVERY
 import customTypes as types
 
 def printMatrix(matrix):
@@ -30,3 +31,6 @@ def csvToVisits(file):
 			line = fp.readline()
 	
 	return matrix[1:] # remove first line : deposit
+
+def timeToDelivery(nb_tiems):
+	return TIME_TO_DELIVERY_ONE_ITEM * nb_tiems + TIME_TO_DELIVERY
