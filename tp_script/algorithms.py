@@ -9,9 +9,7 @@ def popList(arr, idsToPop):
 			newArr.append(e)
 	return newArr
 
-# TODO prendre en compte le nombre de trucs transportées par la voiture
 # TODO prendre en compte le temsp de chargement & (rechargement)
-
 def firstAlgo(visits, distances, times, car):
 	tours = []
 	# visits.sortByDemand() # pour tester
@@ -21,8 +19,6 @@ def firstAlgo(visits, distances, times, car):
 	vehiclePosition = 0 # id of where the vehicule is
 	visitsToPop = []
 	distToDeposit = 0
-
-
 
 	while(len(m_visit)):
 		#i = random.randint(0, len(m_visit) - 1)
@@ -40,14 +36,9 @@ def firstAlgo(visits, distances, times, car):
 		timeToNextToDeposit = timeToNext + timeToDeposit
 
 		demandOfNextDeposit = v.demand
-
-		print("--")
-		print(demandOfNextDeposit)
-		print(v.demand)
 		
 		if(distToNextToDeposit <= car.charge and timeToNextToDeposit <= remainingTime and car.filling >= demandOfNextDeposit):
-			print(v.id)
-			print(len(visitsToPop))
+			# Go to the next delivery point
 			vehiclePosition = v.id
 			vehicleTour.append(v.id)
 			car.move(distToNext)
@@ -56,6 +47,7 @@ def firstAlgo(visits, distances, times, car):
 			remainingTime -= timeToNext
 
 		else:
+			# Comme back to depository
 			vehicleTour.append(0)
 			vehiclePosition = 0
 			car.refill()
@@ -64,14 +56,14 @@ def firstAlgo(visits, distances, times, car):
 				tours.append(vehicleTour)
 				vehicleTour = [0]
 			
-				
 
 		m_visit = popList(m_visit, visitsToPop)
 		visitsToPop = []
 
-	print(tours)
 	return tours
 
+
+# /!\ NOT COMPLETED YET /!\
 def secondAlgo(visits, distances, times, car):
 	tours = []
 	# visits.sortByDemand() # pour tester

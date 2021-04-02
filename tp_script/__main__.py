@@ -22,6 +22,8 @@ def main(dataFolder):
 	result = firstAlgo(visits, distances, times, car)
 	#result = secondAlgo(visits, distances, times, car)
 
+	print(result)
+
 	writeToCsv(result, RESULTS_DIR + 'result1.csv')
 
 	print("Le fichier de resultat s'appel result1.csv")
@@ -30,9 +32,9 @@ def main(dataFolder):
 if __name__ == "__main__":
     if(len(sys.argv) != 2):
     	print("Uage :")
-    	print("$ python3 __main__.py <dataFolder>")
+    	print("$ python3 tp_script <dataFolder>")
     	print("exemple :")
-    	print("$ python3 __main__.py ./Data/lyon_40_1_1/")
+    	print("$ python3 tp_script ./Data/lyon_40_1_1/")
     else: 
     	dataFolder = sys.argv[1]
     	main(dataFolder)
