@@ -74,7 +74,7 @@ class Car:
 
     def __init__(self, capacity, maxDist, start_time, end_time):
         self.capacity = capacity        # the number of objects that can be carry by the car
-        self.filling = 0                # number of items carried 
+        self.filling = capacity         # number of items carried 
         self.max_dist = maxDist         # maximum distance the car can drive
         self.charge = maxDist           # the number of kilometers that the car can still drive
         self.start_time = start_time    # in secondes
@@ -84,8 +84,10 @@ class Car:
         self.charge -= distance
 
     def refill(self):
-        self.charge = self.max_dist
+        self.filling = self.capacity
 
+    def recharge(self):
+        self.charge = self.max_dist
 
 class Visit: 
     """

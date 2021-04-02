@@ -1,5 +1,5 @@
 from customTypes import Car, Distances, Times, Visits
-from algorithms import firstAlgo
+from algorithms import firstAlgo, secondAlgo
 import sys
 import csv
 import os
@@ -20,6 +20,7 @@ def main(dataFolder):
 	visits = Visits(dataFolder+"/visits.csv")	
 	
 	result = firstAlgo(visits, distances, times, car)
+	#result = secondAlgo(visits, distances, times, car)
 
 	writeToCsv(result, RESULTS_DIR + 'result1.csv')
 
