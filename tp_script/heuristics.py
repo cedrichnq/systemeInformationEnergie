@@ -13,8 +13,7 @@ def popList(arr, idsToPop):
 def heuristic(visits, distances, times, car, deterministic = True):
 	tours = []
 	
-	if(not deterministic):
-		visits.sortByDemand() # pour tester
+	# visits.sortByDemand()
 	
 	m_visit = visits.getMatrix()
 
@@ -24,8 +23,9 @@ def heuristic(visits, distances, times, car, deterministic = True):
 	distToDeposit = 0
 
 	while(len(m_visit)):
-		#i = random.randint(0, len(m_visit) - 1)
 		i = 0
+		if(not deterministic):
+			i = random.randint(0, len(m_visit) - 1)
 		v = m_visit[i]
 
 		remainingTime = car.end_time - car.start_time
