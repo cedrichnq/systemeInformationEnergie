@@ -30,15 +30,17 @@ def firstAlgo(visits, distances, times, car):
 		distToNext = distances.getDistanceBetween(vehiclePosition, v.id)
 		distToDeposit = distances.distToDeposit(v.id)
 		distToNextToDeposit = distToNext + distToDeposit
-
 		timeToNext = times.getTimeBetween(vehiclePosition, v.id)
 		timeToNextAndDelevery = timeToNext + timeToDelivery(v.demand)
 		timeToDeposit = times.timeToDeposit(v.id)
 		timeToNextToDeposit = timeToNextAndDelevery + timeToDeposit
 
 		demandOfNextDeposit = v.demand
+
+		def canGoToNextPoint(): 
+			return distToNextToDeposit <= car.charge and timeToNextToDeposit <= remainingTime and car.filling >= demandOfNextDeposit 
 		
-		if(distToNextToDeposit <= car.charge and timeToNextToDeposit <= remainingTime and car.filling >= demandOfNextDeposit):
+		if(canGoToNextPoint()):
 			# Go to the next delivery point
 			vehiclePosition = v.id
 			vehicleTour.append(v.id)
@@ -47,7 +49,7 @@ def firstAlgo(visits, distances, times, car):
 
 			remainingTime -= timeToNext
 
-		else:
+		if(not canGoToNextPoint() or len(m_visit) == 1):
 			# Comme back to depository
 			vehicleTour.append(0)
 			vehiclePosition = 0
