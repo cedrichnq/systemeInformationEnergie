@@ -2,42 +2,21 @@ from const import ID, NAME, DEMAND
 from libs import parseMatrixFile, printMatrix, csvToVisits
 import datetime
 
-class Distances:
-    """
-        Distances matrix
-    """
-
-    def __init__(self, distancesFile):
-        self.distances = parseMatrixFile(distancesFile)
+class MatrixFromFile:
+    def __init__(self, file):
+        self.matrix = parseMatrixFile(file)
 
     def getMatrix(self): 
-        return self.distances
+        return self.matrix
 
     def __str__(self):
-        return printMatrix(self.distances)
+        return printMatrix(self.matrix)
 
-    def getDistanceBetween(self, pos1, pos2):
-        return self.distances[pos1][pos2]
+    def between(self, pos1, pos2):
+        return self.matrix[pos1][pos2]
 
-    def distToDeposit(self, pos):
-        return self.distances[pos][0]
-
-
-class Times:
-    def __init__(self, timesFile):
-        self.times = parseMatrixFile(timesFile)
-
-    def getMatrix(self): 
-        return self.times
-
-    def __str__(self):
-        return printMatrix(self.times)
-
-    def getTimeBetween(self, pos1, pos2):
-        return self.times[pos1][pos2]
-
-    def timeToDeposit(self, pos):
-        return self.times[pos][0]
+    def toDeposit(self, pos):
+        return self.matrix[pos][0]
 
 
 class Car:

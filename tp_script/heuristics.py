@@ -30,12 +30,12 @@ def heuristic(visits, distances, times, car, deterministic = True):
 
 		remainingTime = car.end_time - car.start_time
 
-		distToNext = distances.getDistanceBetween(vehiclePosition, v.id)
-		distToDeposit = distances.distToDeposit(v.id)
+		distToNext = distances.between(vehiclePosition, v.id)
+		distToDeposit = distances.toDeposit(v.id)
 		distToNextToDeposit = distToNext + distToDeposit
-		timeToNext = times.getTimeBetween(vehiclePosition, v.id)
+		timeToNext = times.between(vehiclePosition, v.id)
 		timeToNextAndDelevery = timeToNext + timeToDelivery(v.demand)
-		timeToDeposit = times.timeToDeposit(v.id)
+		timeToDeposit = times.toDeposit(v.id)
 		timeToNextToDeposit = timeToNextAndDelevery + timeToDeposit
 
 		demandOfNextDeposit = v.demand

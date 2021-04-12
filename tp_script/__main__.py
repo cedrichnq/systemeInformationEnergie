@@ -1,4 +1,4 @@
-from customTypes import Car, Distances, Times, Visits
+from customTypes import Car, MatrixFromFile, Visits
 from heuristics import heuristic
 from libs import printMatrix
 import sys
@@ -17,8 +17,8 @@ def writeToCsv(data, file):
 
 def main(dataFolder):
 	car = Car.getCar(dataFolder+"/vehicle.ini")
-	distances = Distances(dataFolder+"/distances.txt")
-	times = Times(dataFolder+"/times.txt")
+	distances = MatrixFromFile(dataFolder+"/distances.txt")
+	times = MatrixFromFile(dataFolder+"/times.txt")
 	visits = Visits(dataFolder+"/visits.csv")
 
 	result = heuristic(visits, distances, times, car)
