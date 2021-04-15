@@ -1,5 +1,6 @@
 from customTypes import Car, MatrixFromFile, Visits
 from heuristics import heuristic
+from metaHeuristics import metaHeuristic1
 from libs import printMatrix
 import sys
 import csv
@@ -22,13 +23,12 @@ def main(dataFolder):
 	visits = Visits(dataFolder+"/visits.csv")
 
 	result = heuristic(visits, distances, times, car)
-
-	print(printMatrix(result))
-
 	writeToCsv(result, RESULTS_DIR + 'result1.csv')
-
 	print("Le fichier de resultat s'appel result1.csv")
 
+	better_result = metaHeuristic1(result)
+	writeToCsv(better_result, RESULTS_DIR + 'better_result.csv')
+	print("Le fichier de resultat s'appel better_result1.csv")
 
 if __name__ == "__main__":
     if(len(sys.argv) != 2):
