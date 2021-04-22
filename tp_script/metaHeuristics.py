@@ -11,10 +11,10 @@ def pickBestNextSolution(solution, context):
 	rate2 = rateSolution(sol2, context)
 	rate3 = rateSolution(sol3, context)
 
-	if(rate1 > rate2 and rate1 > rate3):
+	if rate1 > rate2 and rate1 > rate3:
 		return sol1
 
-	if (rate2 > rate1 and rate2 > rate3):
+	if rate2 > rate1 and rate2 > rate3:
 		return sol1
 
 	return sol1
@@ -30,23 +30,23 @@ def pickBestNextRealisableSolution(solution, context):
 	sol2 = nextInSecondNeighborhood(solution)
 	sol3 = nextInThirdNeighborhood(solution)
 
-	while not isRealisable(sol1):
+	while not isRealisable(sol1, context):
 		sol1 = nextInFirstNeighborhood(solution)
 
-	while not isRealisable(sol2):
+	while not isRealisable(sol2, context):
 		sol2 = nextInSecondNeighborhood(solution)
 
-	while not isRealisable(sol3):
+	while not isRealisable(sol3, context):
 		sol3 = nextInThirdNeighborhood(solution)
 
 	rate1 = rateSolution(sol1, context)
 	rate2 = rateSolution(sol2, context)
 	rate3 = rateSolution(sol3, context)
 
-	if (rate1 > rate2 and rate1 > rate3):
+	if rate1 > rate2 and rate1 > rate3:
 		return sol1
 
-	if (rate2 > rate1 and rate2 > rate3):
+	if rate2 > rate1 and rate2 > rate3:
 		return sol1
 
 	return sol1

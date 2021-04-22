@@ -63,11 +63,32 @@ def rateSolution(solution, context):
 	return nb_cars_bonus + tmp_transit_bonus
 
 
-def isRealisable(solution):
+# # Just verify start and stop with deposit
+# def isRealisable(solution, context):
+# 	startAndStopAtDeposit = True
+#
+# 	for tour in solution:
+# 		startAndStopAtDeposit = tour[0] == 0 and tour[len(tour) - 1] == 0 and startAndStopAtDeposit
+#
+# 	return startAndStopAtDeposit
+
+
+# Verify (start and stop with deposit) and distances
+def isRealisable(solution, context):
+	(distances, times, car) = context
+
 	startAndStopAtDeposit = True
-	distance = True
+	distanceIsCorrect = True
+	distance = 0
 
 	for tour in solution:
 		startAndStopAtDeposit = tour[0] == 0 and tour[len(tour) - 1] == 0 and startAndStopAtDeposit
+		for index, visit in enumerate(tour):
+			nextVisit = tour[index + 1]
+			distanceIsCorrect = distance <= car.max_dist and distanceIsCorrect
+			if visit == 0:
+				distance = 0
+			else:
+				distance += distances.between(visit, nextVisit)
 
-	return startAndStopAtDeposit
+	return startAndStopAtDeposit and distanceIsCorrect
