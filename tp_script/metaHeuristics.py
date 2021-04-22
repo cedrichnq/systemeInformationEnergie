@@ -58,7 +58,7 @@ def metaHeuristic2(solution, context):
 
 
 def stop(newSolution, oldSolution, context):
-	return rateSolution(newSolution, context) >= rateSolution(oldSolution, context)
+	return rateSolution(newSolution, context) > rateSolution(oldSolution, context)
 
 
 # Stop a la premiere meileur solution (premiere solution realisable et meileur que celle d'avant)
@@ -68,6 +68,6 @@ def metaHeuristic3(solution, context):
 
 	while not stop(newSolution, oldSolution, context):
 		oldSolution = newSolution
-		newSolution = pickBestNextSolution(newSolution, context)
+		newSolution = pickBestNextRealisableSolution(newSolution, context)
 
 	return newSolution

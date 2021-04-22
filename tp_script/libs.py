@@ -73,22 +73,51 @@ def rateSolution(solution, context):
 # 	return startAndStopAtDeposit
 
 
-# Verify (start and stop with deposit) and distances
+# # Verify (start and stop with deposit) and distances
+# def isRealisable(solution, context):
+# 	(distances, times, car) = context
+#
+# 	startAndStopAtDeposit = True
+# 	distanceIsCorrect = True
+# 	distance = 0
+#
+# 	for tour in solution:
+# 		startAndStopAtDeposit = tour[0] == 0 and tour[len(tour) - 1] == 0 and startAndStopAtDeposit
+# 		for index, visit in enumerate(tour):
+# 			nextVisit = tour[index + 1]
+# 			distanceIsCorrect = distance <= car.max_dist and distanceIsCorrect
+# 			if visit == 0:
+# 				distance = 0
+# 			else:
+# 				distance += distances.between(visit, nextVisit)
+#
+# 	return startAndStopAtDeposit and distanceIsCorrect
+
+
+# Verify (start and stop with deposit) and distances and time
 def isRealisable(solution, context):
 	(distances, times, car) = context
 
 	startAndStopAtDeposit = True
 	distanceIsCorrect = True
 	distance = 0
+	timeIsCorrect = True
+	time = 0
 
 	for tour in solution:
 		startAndStopAtDeposit = tour[0] == 0 and tour[len(tour) - 1] == 0 and startAndStopAtDeposit
 		for index, visit in enumerate(tour):
 			nextVisit = tour[index + 1]
+
+			if(index < len(tour)):
+				time += times.between(visit, nextVisit)
+
 			distanceIsCorrect = distance <= car.max_dist and distanceIsCorrect
 			if visit == 0:
 				distance = 0
 			else:
 				distance += distances.between(visit, nextVisit)
 
-	return startAndStopAtDeposit and distanceIsCorrect
+		timeIsCorrect = time <= car.end_time - car.start_time
+
+	return startAndStopAtDeposit and distanceIsCorrect and timeIsCorrect
