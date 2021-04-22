@@ -40,7 +40,9 @@ def timeToDelivery(nb_tiems):
 	return TIME_TO_DELIVERY_ONE_ITEM * nb_tiems + TIME_TO_DELIVERY
 
 
-def rateSolution(solution, times):
+def rateSolution(solution, context):
+	(distances, times, car) = context
+
 	tmp_transit = 0
 	tour_tmp_transit = 0
 	nb_cars = 0
@@ -48,7 +50,7 @@ def rateSolution(solution, times):
 	for tour in solution:
 		nb_cars += 1
 		for index, visit in enumerate(tour):
-			if(index + 1 < len(tour)):
+			if index + 1 < len(tour):
 				nextVisit = tour[index + 1]
 				visit_tmp_transit = times.between(visit, nextVisit)
 				tour_tmp_transit += visit_tmp_transit
@@ -63,6 +65,7 @@ def rateSolution(solution, times):
 
 def isRealisable(solution):
 	startAndStopAtDeposit = True
+	distance = True
 
 	for tour in solution:
 		startAndStopAtDeposit = tour[0] == 0 and tour[len(tour) - 1] == 0 and startAndStopAtDeposit

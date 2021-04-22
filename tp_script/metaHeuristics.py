@@ -2,14 +2,14 @@ from neighborhoods import nextInFirstNeighborhood,nextInSecondNeighborhood, next
 from libs import rateSolution, isRealisable
 
 
-def pickBestNextSolution(solution, times):
+def pickBestNextSolution(solution, context):
 	sol1 = nextInFirstNeighborhood(solution)
 	sol2 = nextInSecondNeighborhood(solution)
 	sol3 = nextInThirdNeighborhood(solution)
 
-	rate1 = rateSolution(sol1, times)
-	rate2 = rateSolution(sol2, times)
-	rate3 = rateSolution(sol3, times)
+	rate1 = rateSolution(sol1, context)
+	rate2 = rateSolution(sol2, context)
+	rate3 = rateSolution(sol3, context)
 
 	if(rate1 > rate2 and rate1 > rate3):
 		return sol1
@@ -21,11 +21,11 @@ def pickBestNextSolution(solution, times):
 
 
 # Stop apres une etape seulement
-def metaHeuristic1(solution, times):
-	return pickBestNextSolution(solution, times)
+def metaHeuristic1(solution, context):
+	return pickBestNextSolution(solution, context)
 
 
-def pickBestNextRealisableSolution(solution, times):
+def pickBestNextRealisableSolution(solution, context):
 	sol1 = nextInFirstNeighborhood(solution)
 	sol2 = nextInSecondNeighborhood(solution)
 	sol3 = nextInThirdNeighborhood(solution)
@@ -39,9 +39,9 @@ def pickBestNextRealisableSolution(solution, times):
 	while not isRealisable(sol3):
 		sol3 = nextInThirdNeighborhood(solution)
 
-	rate1 = rateSolution(sol1, times)
-	rate2 = rateSolution(sol2, times)
-	rate3 = rateSolution(sol3, times)
+	rate1 = rateSolution(sol1, context)
+	rate2 = rateSolution(sol2, context)
+	rate3 = rateSolution(sol3, context)
 
 	if (rate1 > rate2 and rate1 > rate3):
 		return sol1
@@ -52,22 +52,22 @@ def pickBestNextRealisableSolution(solution, times):
 	return sol1
 
 
-# Stop a la premiere solution realisable
-def metaHeuristic2(solution, times):
-	return pickBestNextRealisableSolution(solution, times)
+# Stop a la premiere solution realisable (premiere solution realisable)
+def metaHeuristic2(solution, context):
+	return pickBestNextRealisableSolution(solution, context)
 
 
-# def stop(newSolution, oldSolution, times):
-# 	return rateSolution(newSolution, times) >= rateSolution(oldSolution, times)
-#
+def stop(newSolution, oldSolution, context):
+	return rateSolution(newSolution, context) >= rateSolution(oldSolution, context)
 
-# Stop a la premiere solution meileur que celle d'avant
-# def metaHeuristic2(solution, times):
-# 	newSolution = solution
-# 	oldSolution = []
-#
-# 	while not stop(newSolution, oldSolution, times):
-# 		oldSolution = newSolution
-# 		newSolution = pickBestNextSolution(newSolution)
-#
-# 	return newSolution
+
+# Stop a la premiere meileur solution (premiere solution realisable et meileur que celle d'avant)
+def metaHeuristic3(solution, context):
+	newSolution = solution
+	oldSolution = []
+
+	while not stop(newSolution, oldSolution, context):
+		oldSolution = newSolution
+		newSolution = pickBestNextSolution(newSolution, context)
+
+	return newSolution

@@ -10,8 +10,9 @@ def popList(arr, idsToPop):
 			newArr.append(e)
 	return newArr
 
-def heuristic(visits, distances, times, car, deterministic = True):
+def heuristic(visits, context, deterministic = True):
 	tours = []
+	(distances, times, car) = context
 	
 	# visits.sortByDemand()
 	

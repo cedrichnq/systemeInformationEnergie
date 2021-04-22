@@ -11,3 +11,4 @@ def nextInSecondNeighborhood(solution):
 
 def nextInThirdNeighborhood(solution):
     return testRealisableSolution
+

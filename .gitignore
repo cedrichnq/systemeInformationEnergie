@@ -2,3 +2,4 @@ __pycache__/
 results/
 Data/
 tp_script/*.pyc
+.idea/*
