@@ -1,4 +1,4 @@
-from neighborhoods import nextInFirstNeighborhood,nextInSecondNeighborhood, nextInThirdNeighborhood
+from neighborhoods import nextInFirstNeighborhood, nextInSecondNeighborhood, nextInThirdNeighborhood
 from libs import rateSolution, isRealisable
 
 
@@ -61,7 +61,7 @@ def stop(newSolution, oldSolution, context):
 	return rateSolution(newSolution, context) >= rateSolution(oldSolution, context)
 
 
-# Stop a la premiere meileur solution (premiere solution realisable et meileur que celle d'avant)
+# Stop a la premiere meileur solution realisable (premiere solution realisable et meileur que celle d'avant)
 def metaHeuristic3(solution, context):
 	oldSolution = solution
 	newSolution = pickBestNextRealisableSolution(oldSolution, context)
