@@ -107,16 +107,17 @@ def isRealisable(solution, context):
 	for tour in solution:
 		startAndStopAtDeposit = tour[0] == 0 and tour[len(tour) - 1] == 0 and startAndStopAtDeposit
 		for index, visit in enumerate(tour):
-			nextVisit = tour[index + 1]
+			if index + 1 < len(tour):
+				nextVisit = tour[index + 1]
 
-			if(index < len(tour)):
-				time += times.between(visit, nextVisit)
+				if index < len(tour):
+					time += times.between(visit, nextVisit)
 
-			distanceIsCorrect = distance <= car.max_dist and distanceIsCorrect
-			if visit == 0:
-				distance = 0
-			else:
-				distance += distances.between(visit, nextVisit)
+				distanceIsCorrect = distance <= car.max_dist and distanceIsCorrect
+				if visit == 0:
+					distance = 0
+				else:
+					distance += distances.between(visit, nextVisit)
 
 		timeIsCorrect = time <= car.end_time - car.start_time
 
