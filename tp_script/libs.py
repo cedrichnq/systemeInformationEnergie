@@ -1,3 +1,5 @@
+import copy
+
 from const import TIME_TO_DELIVERY_ONE_ITEM, TIME_TO_DELIVERY
 import customTypes as types
 
@@ -38,6 +40,20 @@ def csvToVisits(file):
 
 def timeToDelivery(nb_tiems):
 	return TIME_TO_DELIVERY_ONE_ITEM * nb_tiems + TIME_TO_DELIVERY
+
+
+##############################################################################
+
+
+def removeEmptyTours(solution):
+	newSolution = []
+	for tour in solution:
+		if tour:
+			newSolution.append(copy.deepcopy(tour))
+	return newSolution
+
+
+##############################################################################
 
 
 def rateSolution(solution, context):
