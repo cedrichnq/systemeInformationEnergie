@@ -26,7 +26,7 @@ def main(dataFolder):
     writeToCsv(result, RESULTS_DIR + 'result1.csv')
     print("Le fichier de resultat s'appel result1.csv")
 
-    better_result = metaHeuristic3(result, context)
+    better_result = metaHeuristic1(result, context)
     print(result)
     print(better_result)
     writeToCsv(better_result, RESULTS_DIR + 'better_result.csv')
@@ -42,3 +42,4 @@ if __name__ == "__main__":
     else:
         dataFolder = sys.argv[1]
         main(dataFolder)
+
