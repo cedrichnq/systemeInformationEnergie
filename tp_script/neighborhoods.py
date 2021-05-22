@@ -12,14 +12,32 @@ def getRandomClientVisit(tour):
 	while tour[popVisitIndex] == 0:
 		popVisitIndex = randint(1, len(tour) - 2)
 
-	print(tour[popVisitIndex])
-
 	return tour.pop(popVisitIndex)
+
+def insertDepositVisits(solution, context):
+	(distances, times, car) = context
+	totalDist = 0
+
+	for tour in solution:		
+		for index, visit in enumerate(tour):
+			if(index != len(tour) - 1):
+				distToNext = distances.between(visit, tour[index + 1])
+				distToDeposit = distances.toDeposit(tour[index + 1])
+				totalDist += distToNext
+				distToNextToDeposit = totalDist + distToDeposit
+
+				if(distToNextToDeposit > car.max_dist):
+					tour.insert(index, 0)
+
+		totalDist = 0
+
+
+	return solution
 
 
 # Get random visit of random tour and push it in after a random visit in another random tour
 # never remove depository 
-def nextInFirstNeighborhood(solution):
+def nextInFirstNeighborhood(solution, context):
     newSolution = copy.deepcopy(solution)
 
     popTourIndex = randint(0, len(newSolution) - 1)
@@ -33,12 +51,12 @@ def nextInFirstNeighborhood(solution):
 
     newSolution[insertTourIndex].insert(insertVisitIndex, popVisit)
 
-    return removeEmptyTours(newSolution)
+    return insertDepositVisits(removeEmptyTours(newSolution), context)
 
 
 # Replace a visit by another in the same tour
 # never remove depository 
-def nextInSecondNeighborhood(solution):
+def nextInSecondNeighborhood(solution, context):
     newSolution = copy.deepcopy(solution)
 
     tourIndex = randint(0, len(newSolution) - 1)
@@ -50,10 +68,10 @@ def nextInSecondNeighborhood(solution):
 
     newSolution[tourIndex].insert(insertVisitIndex, popVisit)
 
-    return removeEmptyTours(newSolution)
+    return insertDepositVisits(removeEmptyTours(newSolution), context)
 
 
 
-def nextInThirdNeighborhood(solution):
+def nextInThirdNeighborhood(solution, context):
     return testNonRealisableSolution
 

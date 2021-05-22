@@ -3,9 +3,9 @@ from libs import rateSolution, isRealisable
 
 
 def pickBestNextSolution(solution, context):
-	sol1 = nextInFirstNeighborhood(solution)
-	sol2 = nextInSecondNeighborhood(solution)
-	sol3 = nextInThirdNeighborhood(solution)
+	sol1 = nextInFirstNeighborhood(solution, context)
+	sol2 = nextInSecondNeighborhood(solution, context)
+	sol3 = nextInThirdNeighborhood(solution, context)
 
 	rate1 = rateSolution(sol1, context)
 	rate2 = rateSolution(sol2, context)
@@ -26,18 +26,18 @@ def metaHeuristic1(solution, context):
 
 
 def pickBestNextRealisableSolution(solution, context):
-	sol1 = nextInFirstNeighborhood(solution)
-	sol2 = nextInSecondNeighborhood(solution)
-	sol3 = nextInThirdNeighborhood(solution)
+	sol1 = nextInFirstNeighborhood(solution, context)
+	sol2 = nextInSecondNeighborhood(solution, context)
+	sol3 = nextInThirdNeighborhood(solution, context)
 
 	while not isRealisable(sol1, context):
-		sol1 = nextInFirstNeighborhood(solution)
+		sol1 = nextInFirstNeighborhood(solution, context)
 
 	while not isRealisable(sol2, context):
-		sol2 = nextInSecondNeighborhood(solution)
+		sol2 = nextInSecondNeighborhood(solution, context)
 
 	while not isRealisable(sol3, context):
-		sol3 = nextInThirdNeighborhood(solution)
+		sol3 = nextInThirdNeighborhood(solution, context)
 
 	rate1 = rateSolution(sol1, context)
 	rate2 = rateSolution(sol2, context)
