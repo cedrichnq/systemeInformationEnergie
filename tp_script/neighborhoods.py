@@ -17,8 +17,9 @@ def getRandomClientVisit(tour):
 def insertDepositVisits(solution, context):
 	(distances, times, car) = context
 	totalDist = 0
+	newSolution = copy.deepcopy(solution)
 
-	for tour in solution:		
+	for tourIndex, tour in enumerate(solution):
 		for index, visit in enumerate(tour):
 			if(index != len(tour) - 1):
 				distToNext = distances.between(visit, tour[index + 1])
@@ -27,12 +28,12 @@ def insertDepositVisits(solution, context):
 				distToNextToDeposit = totalDist + distToDeposit
 
 				if(distToNextToDeposit > car.max_dist):
-					tour.insert(index, 0)
+					newSolution[tourIndex].insert(index, 0)
 
 		totalDist = 0
 
 
-	return solution
+	return newSolution
 
 
 # Get random visit of random tour and push it in after a random visit in another random tour
@@ -73,5 +74,5 @@ def nextInSecondNeighborhood(solution, context):
 
 
 def nextInThirdNeighborhood(solution, context):
-    return testNonRealisableSolution
+    return testRealisableSolution
 
