@@ -8,7 +8,13 @@ testNonRealisableSolution = [[0, 1, 2, 3, 4, 5], [0, 6, 7, 0], [0, 8, 9, 10, 11,
 
 
 def getRandomClientVisit(tour):
-	popVisitIndex = randint(1, len(tour) - 2)
+	popVisitIndex = 0
+
+	if len(tour) < 3 : 
+		popVisitIndex = 2
+	else: 
+		popVisitIndex = randint(1, len(tour) - 2)
+
 	while tour[popVisitIndex] == 0:
 		popVisitIndex = randint(1, len(tour) - 2)
 
@@ -32,7 +38,6 @@ def insertDepositVisits(solution, context):
 
 		totalDist = 0
 
-
 	return newSolution
 
 
@@ -48,7 +53,11 @@ def nextInFirstNeighborhood(solution, context):
 
     insertTourIndex = randint(0, len(newSolution) - 1)
     insertTour = newSolution[insertTourIndex]
-    insertVisitIndex = randint(1, len(insertTour) - 2)
+
+    if len(insertTour) < 3 : 
+    	insertVisitIndex = 2
+    else: 
+    	insertVisitIndex = randint(1, len(insertTour) - 2)
 
     newSolution[insertTourIndex].insert(insertVisitIndex, popVisit)
 
